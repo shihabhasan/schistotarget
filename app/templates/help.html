@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load staticfiles %}
+
+<div class="col-md-10 col-sm-12 content-holder">
+	<div id="menu-container">
+		
+		<div class="logo-holder logo-top-margin">
+		<div class="welcome-text">
+			<h2><strong><i class="fa fa-cogs"></i>&nbsp;Help</strong></h2>
+		</div>
+		</div>
+		
+		<div class="visible-xs visible-sm responsive-menu">
+			<div class="main-menu">
+				<ul ><h7>
+					<li>
+						<a class="show-1 active infobutton" href="#"><i class="fa fa-info fa-2x"></i>&nbsp;About</a>
+					</li>
+					<li>
+						<a class="show-2 databutton" href="#"><i class="fa fa-file fa-2x"></i>&nbsp;Data</a>
+					</li>
+					<li>
+						<a class="show-3 sourcebutton" href="#"><i class="fa fa-github fa-2x"></i>&nbsp;Source</a>
+					</li>
+					<li>
+						<a class="show-4 inputbutton" href="#"><i class="fa fa-cloud-upload fa-2x"></i>&nbsp;Input</a>
+					</li>
+					<li>
+						<a class="show-5 outputbutton" href="#"><i class="fa fa-bar-chart fa-2x"></i>&nbsp;Output</a>
+					</li>
+					<li>
+						<a class="show-6 faqbutton" href="#"><i class="fa fa-question fa-2x"></i>&nbsp;FAQ</a>
+					</li>
+				</h7></ul>
+			</div>
+		</div>
+						
+
+		<div id="menu-1" class="homepage info-section">
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">About</h3>
+					<p>
+					SchistoTarget is a supervised machine learning based tool which uses 17 machine learning techniques to discriminate between two classes of proteins. 
+					SchistoTarget predictions are highly valuable for identifying genes important for host-parasite interaction and the discovery of novel drug and vaccine targets.  
+					</p>
+				</div>
+			</div>
+		</div>	
+
+		<div id="menu-2" class="content data-section">	
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">Demo Data Set</h3>                           
+					<p>The demo data set can be downloded from <a href="{% static 'demo.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;here</a></p>
+					<br></br>
+					<h3 class="widget-title">Other example data set</h3>
+					<a href="{% static 'human_secretory.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;Human Secreted Proteins</a>
+					
+					<p><a href="{% static 'mouse_secretory.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;Mouse Secreted Proteins</a></p>
+					</div>
+				</div>
+			</div>
+
+		<div id="menu-3" class="content source-section">
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">Source Code</h3>                           
+					<p>
+					The source codes of SchistoTarget can be found on <a href="https://github.com/shihabhasan/SchistoTarget.git"><i class="fa fa-github fa-2x"></i>&nbsp;GitHub</a>.
+					</p>		
+				</div>
+			</div>
+		</div>
+		
+		<div id="menu-4" class="content input-section">
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">Input options</h3>                           
+					<p>
+					SchistoTarget takes the fasta formatted text or file. File extension can be any type (eg. .txt, .fas, .fasta etc.). File extension does not have any effect on SchistoTarget.
+				
+					<br></br>
+
+					If a valid email address is provided, an email containing the output result CSV file will be sent automatically. 
+					So for large dataset, it is better to provide the email address.
+					</p>		
+				</div>
+			</div>
+		</div>
+
+		<div id="menu-5" class="content output-section">
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">Output</h3>                           
+					<p>
+					After completing the task, a result page with a prediction table is appeared. The result is also sent by email if a valid email address is provided during data submission. 
+					<br></br>
+					The prediction table is a list of Sequence ID of test protein sequence, category prediction, decision score and probability.
+					<br></br>
+					<center> <img src="{% static 'prediction.gif' %}" alt="Prediction Table" width ="90%"></center> 
+					<br></br><br></br>
+					The feature table is a list of Sequence ID of test protein sequences and the values for 76 features.
+					<br></br>
+					<center> <img src="{% static 'feature.gif' %}" alt="Features Table" width ="90%"></center> 
+					<br></br><br></br>
+					Plots and Charts can be drawn from 'Draw Charts' section.
+					<br></br>
+					<center> <img src="{% static 'charts.gif' %}" alt="Charts" width ="90%"></center> 
+					<br></br>
+					</p>		
+				</div>
+			</div>
+		</div>
+		
+		<div id="menu-6" class="content faq-section">
+			<div class="col-md-12 col-sm-12">
+				<div class="box-content">
+					<h3 class="widget-title">FAQ</h3>                           
+					<p>
+					Under prepartion ...
+					</p>		
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+</div>	
+		
+
+	
+<nav id="nav" class="main-navigation">
+  <div class="col-md-1 hidden-sm hidden-xs">
+	<ul class="main-menu">
+		<li>
+			<a class="show-1 active infobutton" href="#"><i class="fa fa-info"></i>About</a>
+		</li>
+		<li>
+			<a class="show-2 databutton" href="#"><i class="fa fa-file"></i>Data</a>
+		</li>
+		<li>
+			<a class="show-3 sourcebutton" href="#"><i class="fa fa-github"></i>Source</a>
+		</li>
+	</ul>
+  </div>
+  <div class="col-md-1 hidden-sm hidden-xs">
+	<ul class="main-menu">
+		<li>
+			<a class="show-4 inputbutton" href="#"><i class="fa fa-cloud-upload"></i>Input</a>
+		</li>
+		<li>
+			<a class="show-5 outputbutton" href="#"><i class="fa fa-bar-chart"></i>Output</a>
+		</li>
+		<li>
+			<a class="show-6 faqbutton" href="#"><i class="fa fa-question"></i>FAQ</a>
+		</li>
+	</ul>
+  </div>
+</nav>
+				
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+ {% load staticfiles %}
+
+
+		<div class="col-sm-6 col-sm-offset-3 col-sm-12">
+		<div class=protcat style="centre">
+		<font color="#00476B" face="Copperplate Gothic Light" size="5"> <b> ProtCat App </b> </font>
+		<form id='predict' method='post' action='predict' enctype="multipart/form-data"> {% csrf_token %} <!-- action is the URL you want to move to next-->
+		<br></br>
+	   <p> 
+	   <h3> Upload FASTA File of training type-1 proteins </h3>  
+	   <input type='file' name='cat1_file' /> 
+	   <br></br>
+	   </p> 
+		<p> 
+	   <h3> Upload FASTA File of training type-2 proteins </h3>  
+	   <input type='file' name='cat2_file' /> 
+	   <br></br>
+	   </p>
+	   <p> 
+	   <h3> Upload FASTA File of test proteins </h3>  
+	   <input type='file' name='test_file' /> 
+	   <br></br>
+	   </p> 
+	   <h3>To get the result please enter your email address (optional): <input type="email" name="email" placeholder="yourname@example.com"></h3> 
+	    <br> </br> 
+		<input type="reset" value="Reset" class="btn-primary" /></p>
+		<p>
+	   <input type='submit' value='Submit' class="protcat_submit_button pull-right" /> <!-- value is the text that will appear on the button. --> 
+	   <br> </br>
+	   </p>
+		</form>
+		</div>
+		</div>
+
+
+{% endblock %}
+

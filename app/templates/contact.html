@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<div class="welcome-text">
+<center>
+		<div class="welcome-text">
+			<h2><strong><i class="fa fa-envelope"></i>&nbsp;Contact</strong></h2>
+		</div>
+</center>
+</div>
+
+<div class="col-sm-6 col-sm-offset-3 col-sm-12">
+	<div class="box-content">
+		<h3 class="widget-title">Send Us A Message</h3>
+		<form class="contact-form" method='post' action='thanks' enctype="multipart/form-data"> {% csrf_token %}
+			<fieldset>
+				<input type="text" class="name" name="name" placeholder="Name...">
+			</fieldset> 
+			<fieldset>
+				<input type="email" class="email" name="email" placeholder="Email..." required>
+			</fieldset> 
+			<fieldset>
+				<input type="text" class="subject" name="subject" placeholder="Subject...">
+			</fieldset>
+			<fieldset>
+				<textarea name="message" name="message" cols="30" rows="4" placeholder="Message.."></textarea>
+			</fieldset>
+			<fieldset>
+				<input type="submit" class="button" id="button" value="Send Message">
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+
+<div class="col-sm-3 col-sm-offset-3 col-sm-12">
+	<div class="box-content">
+			<strong>Lutz Krause</strong>
+			<br>Computational Medical Genomics Group
+			<br>The University of Queensland Diamantina Institute
+			<br>Translational Research Institute
+			<br>37 Kent Street, Woolloongabba, QLD 4102, Australia 	
+			<div class="about-social">
+			<ul>
+				<li><a href="https://au.linkedin.com/in/lutzkrause" class="fa fa-linkedin"></a></li>
+				<li><a href="mailto:l.krause@uq.edu.au" class="fa fa-envelope"></a></li>
+			</ul>
+			</div>						
+	</div>
+</div>
+
+<div class="col-sm-3 col-sm-12">
+	<div class="box-content">
+		<strong>Shihab Hasan</strong>
+		<br>Computational Medical Genomics Group
+		<br>The University of Queensland Diamantina Institute
+		<br>Translational Research Institute
+		<br>37 Kent Street, Woolloongabba, QLD 4102, Australia 	
+		<div class="about-social">
+		<ul>
+			<li><a href="https://au.linkedin.com/in/shihab-hasan" class="fa fa-linkedin"></a></li>
+			<li><a href="mailto:shihab.hasan@uqconnect.edu.au" class="fa fa-envelope"></a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
