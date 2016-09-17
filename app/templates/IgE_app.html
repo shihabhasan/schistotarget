@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+  
+<div class="col-xs-12 col-sm-5 col-sm-offset-4">
+<div class="call-action call-action-boxed call-action-style1 glass" style="centre">
+<font color="#00476B" face="Copperplate Gothic Light" size="5"> <strong> <div class="accent-color"> IgE Prediction </div> </strong> </font>
+
+<form name='IgE' id='IgE' method='post' action='IgE_predict' enctype="multipart/form-data"> {% csrf_token %} <!-- action is the URL you want to move to next-->
+   <p> 
+   <h3> Enter FASTA sequence(s) </h3> 
+   <textarea type='text' name='input_sequences' id="input_sequences" placeholder="FASTA sequence(s)" class="form-control" rows="12" style="min-width: 100%"> </textarea> 
+   </p>
+   <p> 
+   <h3> Or, Upload FASTA File </h3>  
+   <input type='file' name='input_file'> 
+   </p>
+   <p>To get the result please enter your email address (optional): <input type="email" name="input_email" placeholder="yourname@example.com"></p>
+   <p>To load example sequences, <a href="#" id='input_load_example'>click here!</a></p>
+   <input type="reset" value="Reset" class="btn-primary" />
+   <p>
+   <br> </br> 
+   <input type='submit' value='Submit' class="pull-right" /> <!-- value is the text that will appear on the button. --> 
+   
+   <br> </br>
+   </p>
+</form>
+</div>
+</div>
+
+<!-- here comes the javascript -->
+<script type="text/javascript">
+document.getElementById("input_load_example").onclick = function() {
+document.IgE.input_sequences.value = 
+'>gi|121698|sp|P15964.1|GST26_SCHMA\n'
++'MAPKFGYWKVKGLVQPTRLLLEHLEETYEERAYDRNEIDAWSNDKFKLGLEFPNLPYYIDGDFKLTQSMAIIRYIADKHNMLGACPKERAEISMLEGAVLDIRMGVLRIAYNKEYETLKVDFLNKLPGRLKMFEDRLSNKTYLNGNCVTHPDFMLYDALDVVLYMDSQCLNEFPKLVSFKKCIEDLPQIKNYLNSSRYIKWPLQGWDATFGGGDTPPK\n'
++'>gi|13021614|gb|AAK11492.1|U57714_1\n'
++'MSPSLVSDTQKHERGSHEVKIKHFSPYIAVCVTTFSLAFCCFMVHAAITRQPTHLLPFFFIQVFDLIICLIHILGFMSSTSDIRLVIHTKTGPIYIKSTGLTFIILSISCMMLAFKAYCLGMVWDCYKYLMLNRRGNLLDDWYSDQWGHLSTFWSLLRTGRNRGNNSIGNSGSPNEPNTRPRPDTITYDPANDLPKYEDILKIRNAYAPPPYYCSNTNGNVNTTTTDAVTTNTTITSATTANATTTITTNANTNTSTTTSVISPLTTTNKDDTQINNASSNAHSSC\n'
++'>gi|108861845|gb|ABG21824.1|\n'
++'MVDSSIFDEIPEEISAQLVSFSEATDDVEQLVNKISNFSNDSNTEVSDLDAIKTDLSLCYAFNALFFMYLRCNGVETQSHPIMQELDRVMNALKRCRSLVEKEGSARLKLDKEATTRFVKHALWKSAHTKTKKRRMDSST\n'
++'>gi|10953803|gb|AAG25601.1|AF297469_1\n'
++'GRGKGGKGLGKGGAKRHRKVLRDNIQGITKPAIRRLARRGGVKRISGLIYEETRGVLKVFLENVIRDAVTYTEHAKRKTVTAMDVVYALKRQGRTLYG'
+;
+}
+</script>
+
+
+{% endblock %}
+

@@ -2812,14 +2812,14 @@ ul.icons-list li i {
 .classic-title {
 	margin-bottom: 16px;
 	padding-bottom: 8px;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid;
     font-weight: 300;
 }
 
 
 .classic-title span {
 	padding-bottom: 8px;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid eee;
 	font-weight: 400;
 }
 
