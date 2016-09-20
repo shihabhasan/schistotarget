@@ -6,7 +6,7 @@ from django.http.response import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
-from app.immuno_tasks import run_immuno
+from app.tasks import run_immuno
 
 
 
@@ -48,21 +48,21 @@ def immuno_predict(request):
       destination=open(filename,'wb+')
       for chunk in file.chunks():
          destination.write(chunk)
-   task=run_surface.delay(filename, immuno_email)
+   task=run_immuno.delay(filename, immuno_email)
    task_id=task.id
    return HttpResponseRedirect('/immuno_progress/'+task_id, { 'task_id': task_id })
 
 def immuno_progress(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    while not  result.ready():
-      return render_to_response('progress.html', { 'task_id': task_id })
+      return render_to_response('immuno_progress.html', { 'task_id': task_id })
    return HttpResponseRedirect('/immuno_results/'+task_id, { 'task_id': task_id })
    
 def immuno_results(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    result_data=result.get()
    prediction_lines, header, lines, x1, x2, x3, fh, fd = result_data
-   return render_to_response('result.html', { 'predict_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
+   return render_to_response('immuno_result.html', { 'immuno_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
 
 
 #-----------IgE PREDICTION-----------------------------
@@ -83,21 +83,21 @@ def IgE_predict(request):
       destination=open(filename,'wb+')
       for chunk in file.chunks():
          destination.write(chunk)
-   task=run_surface.delay(filename, IgE_email)
+   task=run_immuno.delay(filename, IgE_email)
    task_id=task.id
    return HttpResponseRedirect('/IgE_progress/'+task_id, { 'task_id': task_id })
 
 def IgE_progress(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    while not  result.ready():
-      return render_to_response('progress.html', { 'task_id': task_id })
+      return render_to_response('IgE_progress.html', { 'task_id': task_id })
    return HttpResponseRedirect('/IgE_results/'+task_id, { 'task_id': task_id })
    
 def IgE_results(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    result_data=result.get()
    prediction_lines, header, lines, x1, x2, x3, fh, fd = result_data
-   return render_to_response('result.html', { 'predict_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
+   return render_to_response('IgE_result.html', { 'IgE_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
 
 #-----------IgG1 PREDICTION-----------------------------
 
@@ -117,21 +117,21 @@ def IgG1_predict(request):
       destination=open(filename,'wb+')
       for chunk in file.chunks():
          destination.write(chunk)
-   task=run_surface.delay(filename, IgG1_email)
+   task=run_immuno.delay(filename, IgG1_email)
    task_id=task.id
    return HttpResponseRedirect('/IgG1_progress/'+task_id, { 'task_id': task_id })
 
 def IgG1_progress(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    while not  result.ready():
-      return render_to_response('progress.html', { 'task_id': task_id })
+      return render_to_response('IgG1_progress.html', { 'task_id': task_id })
    return HttpResponseRedirect('/IgG1_results/'+task_id, { 'task_id': task_id })
    
 def IgG1_results(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    result_data=result.get()
    prediction_lines, header, lines, x1, x2, x3, fh, fd = result_data
-   return render_to_response('result.html', { 'predict_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
+   return render_to_response('IgG1_result.html', { 'IgG1_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
 
 
 
@@ -153,21 +153,21 @@ def IgG3_predict(request):
       destination=open(filename,'wb+')
       for chunk in file.chunks():
          destination.write(chunk)
-   task=run_surface.delay(filename, IgG3_email)
+   task=run_immuno.delay(filename, IgG3_email)
    task_id=task.id
    return HttpResponseRedirect('/IgG3_progress/'+task_id, { 'task_id': task_id })
 
 def IgG3_progress(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    while not  result.ready():
-      return render_to_response('progress.html', { 'task_id': task_id })
+      return render_to_response('IgG3_progress.html', { 'task_id': task_id })
    return HttpResponseRedirect('/IgG3_results/'+task_id, { 'task_id': task_id })
    
 def IgG3_results(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    result_data=result.get()
    prediction_lines, header, lines, x1, x2, x3, fh, fd = result_data
-   return render_to_response('result.html', { 'predict_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
+   return render_to_response('IgG3_result.html', { 'IgG3_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
 
 
 #-----------IgG4 PREDICTION-----------------------------
@@ -188,21 +188,21 @@ def IgG4_predict(request):
       destination=open(filename,'wb+')
       for chunk in file.chunks():
          destination.write(chunk)
-   task=run_surface.delay(filename, IgG4_email)
+   task=run_immuno.delay(filename, IgG4_email)
    task_id=task.id
    return HttpResponseRedirect('/IgG4_progress/'+task_id, { 'task_id': task_id })
 
 def IgG4_progress(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    while not  result.ready():
-      return render_to_response('progress.html', { 'task_id': task_id })
+      return render_to_response('IgG4_progress.html', { 'task_id': task_id })
    return HttpResponseRedirect('/IgG4_results/'+task_id, { 'task_id': task_id })
    
 def IgG4_results(request, task_id):
-   result = run_surface.AsyncResult(task_id)
+   result = run_immuno.AsyncResult(task_id)
    result_data=result.get()
    prediction_lines, header, lines, x1, x2, x3, fh, fd = result_data
-   return render_to_response('result.html', { 'predict_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
+   return render_to_response('IgG4_result.html', { 'IgG4_result': prediction_lines, 'header':header, 'all_predictions': lines, 'x1': x1, 'x2': x2, 'x3': x3, 'fh':fh, 'fd':fd })
 
 
 #-----------ERROR HANDLER-----------------------------

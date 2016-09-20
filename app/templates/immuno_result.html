@@ -1,62 +1,75 @@
 {% extends "layout.html" %}
 {% block body %}
 
-{% load staticfiles %}
-{% load my_templatetags %}
 
-
-<div>
-<div class="welcome-text">
 <p> 
-<h2 style="background-color:#00476B; color:white"> <center> ProtCat prediction result </center> </h2> 
+<h2 style="background-color:#00476B; color:white"> <center> Immunoreactive protein prediction result </center> </h2> 
 </p>
-</div>
-<div  style="position:relative; left:280px;">
 
-{% for line in statistics %}
-<br>  {{ line }} 
-{% endfor %}
-
-</div>
-
+{% load my_templatetags %}
 
 <!--- OUTPUT TABLE --->
 
 <center>
-<div style="width: 750px">
-<p><h5> Prediction </h5></p>
- <h3>
-<table id="protcattable" class="display" cellspacing="0" width="100%" >
+<div style="width: 70%">
+<p><h1 class="classic-title text-center accent-color"><strong>Prediction</strong></h1></p>
+
+<table id="immuno_table" class="display" cellspacing="0" width="100%" >
+
 <thead>
 <tr>
 	<td>Protein ID</td>
 	<td>Prediction</td>
-	<td>Score</td>
-	<td>Probability</td>
+	<td>Score </td>
 </tr>
 </thead>
-<tbody>
-{% for line in result %}
-<tr>
-	<td>{{ line|Split:0 }}</td>
-	<td>{{ line|Split:1 }}</td>
-	<td>{{ line|Split:2 }}</td>
-	<td>{{ line|Split:3 }}</td>
 
+<tbody>
+{% for lines in immuno_result %}
+<tr>
+{% for line in lines|split:"," %}
+	<td>{{ line }}</td>
+{% endfor %}
 </tr>
 {% endfor %}
 </tbody>
 </table>
-</h3>
 
 <div id="selection"></div>
-<br></br><h5></h5>
+<br></br><h1></h1>
 
 <br></br>
-<p><h5> Features </h5></p>
+<p><h1 class="classic-title text-center accent-color"><strong>All Methods</strong></h1></p>
 <div > 
-<h3>
-<table id="protcatfeature" class="display" cellspacing="0" width="100%" >
+<table id="allPredictions" class="display" cellspacing="0" width="100%" >
+
+<thead>
+{% for allheaders in header %}
+<tr>
+{% for ah in allheaders|split:"," %}
+	<td>{{ ah }}</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</thead>
+<tbody>
+{% for pred in all_predictions %}
+<tr>
+{% for p in pred|split:"," %}
+	<td>{{ p }}</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<br></br><h1></h1>
+
+<br></br>
+<p><h1 class="classic-title text-center accent-color"><strong>Features</strong></h1></p>
+<div > 
+<table id="immuno_feature" class="table" cellspacing="0" width="100%" >
 
 <thead>
 {% for h in fh %}
@@ -67,8 +80,6 @@
 </tr>
 {% endfor %}
 </thead>
-
-
 <tbody>
 {% for fl in fd %}
 <tr>
@@ -77,20 +88,18 @@
 {% endfor %}
 </tr>
 {% endfor %}
-
 </tbody>
-</h3>
 </table>
 </div>
 <br></br>
 </center> 
 
 </div>
-</div>
+
 
 <script>
 $(document).ready( function () {
-    $('#protcattable').DataTable( {
+    $('#immuno_table').DataTable( {
 		"scrollX": true,
         dom: 'Bfrtip',
 		scrollY: '50vh',
@@ -104,7 +113,7 @@ $(document).ready( function () {
 			'print'
         ]
     } );
-	var featuretable = $('#protcatfeature').DataTable({
+	var allPredictionstable = $('#allPredictions').DataTable({
 		"scrollX": true,
         dom: 'Bfrtip',
 		scrollY: '50vh',
@@ -116,12 +125,34 @@ $(document).ready( function () {
             'csvHtml5',
             'pdfHtml5',
 			'print'
-        ]
+        ],
+		fixedColumns:   {
+            leftColumns: 1,
+            rightColumns: 0
+        }
+	});
+	var featuretable = $('#immuno_feature').DataTable({
+		"scrollX": true,
+        dom: 'Bfrtip',
+		scrollY: '50vh',
+        scrollCollapse: true,
+        paging: false,
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5',
+			'print'
+        ],
+		fixedColumns:   {
+            leftColumns: 1,
+            rightColumns: 0
+        }
 	});
 
- var table = $('#protcattable').DataTable();
-    $('#protcattable tbody tr').click (function () {
-      $('#protcattable tbody tr').not(this).removeClass('selected');
+ var table = $('#immuno_table').DataTable();
+    $('#immuno_table tbody tr').click (function () {
+      $('#immuno_table tbody tr').not(this).removeClass('selected');
       $(this).toggleClass('selected');
       tableData=table.row( this ).data()[0];
 	  select(tableData);
@@ -139,25 +170,15 @@ document.getElementById('selection').innerHTML = "Selected: " + seqID;
 
 <center> 
 <br></br>
-<p><h5>Draw Charts</h5></p>
+<p><h1 class="classic-title text-center accent-color"><strong>Draw Charts<strong></h1></p>
 <p>Click on a row of the Prediction table, then click any of follwing buttons to draw plot</p>
 
-<style>
-	li {
-		list-style: none;
-		position: relative;
-		display: inline-block;
-		margin: auto 70px;
-		width: 100px;
-		height: 100px;
-	}
-</style>
 
 <ul>
-<li><a href="javascript:strip_plot()" class="round green">Strip<span class="round">DRAW STRIP CHART</span></a></li>
-<li><a href="javascript:grouped_bar()" class="round blue">Grouped<span class="round">DRAW GROUPED BAR CHART</span></a></li>
-<li><a href="javascript:stacked_bar()" class="round red">Stacked<span class="round">DRAW STACKED BAR CHART</span></a></li>
-<li><a href="javascript:heat_map()" class="round yellow">HeatMap<span class="round">DRAW HEAT MAP</span></a></li>
+<app_li><a href="javascript:strip_plot()" class="round green">Strip<span class="round">DRAW STRIP CHART</span></a></app_li>
+<app_li><a href="javascript:grouped_bar()" class="round blue">Grouped<span class="round">DRAW GROUPED BAR CHART</span></a></app_li>
+<app_li><a href="javascript:stacked_bar()" class="round red">Stacked<span class="round">DRAW STACKED BAR CHART</span></a></app_li>
+<app_li><a href="javascript:heat_map()" class="round yellow">HeatMap<span class="round">DRAW HEAT MAP</span></a></app_li>
 </ul>
 
 
@@ -169,13 +190,14 @@ document.getElementById('selection').innerHTML = "Selected: " + seqID;
 </div>
 <script>
   /* JAVASCRIPT CODE GOES HERE */
-ids=['Length of proetin sequence', 'Percentage of alanine', 'Percentage of cysteine', 'Percentage of aspartic acid', 
+ids=['Length of sequence', 'Percentage of alanine', 'Percentage of cysteine', 'Percentage of aspartic acid', 
 'Percentage of glutamic acid', 'Percentage of phenylalanine', 'Percentage of glycine', 'Percentage of histidine', 'Percentage of isoleucine', 
 'Percentage of lysine', 'Percentage of leucine', 'Percentage of methionine', 'Percentage of asparagine', 'Percentage of proline', 
 'Percentage of glutamine', 'Percentage of arginine', 'Percentage of serine', 'Percentage of threonine', 'Percentage of valine', 
-'Percentage of tryptophan', 'Percentage of tyrosine', 'Molecular Weight', 'Aromaticity', 'Instability Index', 'Isoelectric Point', 
-'Grand average of hydropathy (GRAVY)', 'Helix', 'Turn', 'Sheet', 'Average Residue Weight', 'Charge', 'Molar Extinction Coefficient A280', 
-'Absobance A280', 'Probability of Expression Inclusion Bodies', 'DayhoffStat of alanine', 'DayhoffStat of cysteine', 'DayhoffStat of aspartic acid', 
+'Percentage of tryptophan', 'Percentage of tyrosine', 'Molecular weight', 'Aromaticity', 'Instability Index', 'Isoelectric Point', 
+'Grand average of hydropathy (GRAVY)', 'Secondary helix fraction', 'Secondary turn fraction', 'Secondary sheet fraction', 
+'Average Residue Weight', 'Charge', 'Molar Extinction Coefficient A280', 'Absobance A280', 
+'Probability of Expression Inclusion Bodies', 'DayhoffStat of alanine', 'DayhoffStat of cysteine', 'DayhoffStat of aspartic acid', 
 'DayhoffStat of glutamic acid', 'DayhoffStat of phenylalanine', 'DayhoffStat of glycine', 'DayhoffStat of histidine', 'DayhoffStat of isoleucine', 
 'DayhoffStat of lysine', 'DayhoffStat of leucine', 'DayhoffStat of methionine', 'DayhoffStat of asparagine', 'DayhoffStat of proline', 'DayhoffStat of glutamine', 
 'DayhoffStat of arginine', 'DayhoffStat of serine', 'DayhoffStat of threonine', 'DayhoffStat of valine', 'DayhoffStat of tryptophan', 'DayhoffStat of tyrosine', 
@@ -183,30 +205,33 @@ ids=['Length of proetin sequence', 'Percentage of alanine', 'Percentage of cyste
 'Percentage of non polar mole', 'Percentage of charged mole', 'Percentage of acidic mole', 'Percentage of basic mole', 'Percentage of secondary helix', 
 'Percentage of secondary sheet', 'Percentage of secondary turns', 'Percentage of secondary coil', 'C-mannosylation sites', 'Proteasomal cleavages (MHC ligands)', 
 'N-linked glycosylation sites', 'Generic phosphorylation sites of serine', 'Generic phosphorylation sites of threonine', 'Generic phosphorylation sites of tyrosine', 
-'Transmembrane helices in proteins', 'Propeptide cleavage sites: Arg(R) or Lys(K)', 'Signal peptide cleavage sites']
+'Arginine and lysine propeptide cleavage sites', 'Binding regions in disordered proteins', 'Mitochondrial targeting peptide (mTP)', 
+'Secretory pathway signal peptide (SP)', 'Other subcellular location', 'Linear B-cell epitopes', 'Class I Immunogenicity']
+
+
 
 diction = {
         {% for k, v in x3.iteritems %}
-        "{{ k }}": {{ v }}{% if not forloop.last %},{% endif %}
+        "{{ k }}": {{ v|Slice:80 }}{% if not forloop.last %},{% endif %}
         {% endfor %}
     }
   /* STRIP PLOT */
 function strip_plot() {
 var trace1 = {
   x: ids,
-  y: {{ x1 }}, 
+  y: {{ x1|Slice:80 }}, 
   mode: 'markers',
   type: 'scatter',
-  name: 'Type-1 Protein',
+  name: 'Immunoreactive Protein',
   marker: { size: 10 }
 };
 
 var trace2 = {
   x: ids,
-  y: {{ x2 }}, 
+  y: {{ x2|Slice:80 }}, 
   mode: 'markers',
   type: 'scatter',
-  name: 'Type-2 Protein', 
+  name: 'Non-Immunoreactive Protein', 
   marker: { size: 10 }
 };
 
@@ -233,21 +258,21 @@ Plotly.newPlot('myDiv', data, layout);
 function grouped_bar() {
 var trace1 = {
   x: ids, 
-  y: {{ x1 }}, 
-  name: 'Type-1 Protein', 
+  y: {{ x1|Slice:80 }}, 
+  name: 'Immunoreactive Protein', 
   type: 'bar'
 };
 
 var trace2 = {
   x: ids, 
-  y: {{ x2 }}, 
-  name: 'Type-2 Protein', 
+  y: {{ x2|Slice:80 }}, 
+  name: 'Non-Immunoreactive Protein', 
   type: 'bar'
 };
 
 var trace3 = {
   x: ids, 
-  y: diction[tableData], 
+  y: diction[tableData]|Slice:80, 
   name: tableData, 
   type: 'bar'
 };
@@ -266,15 +291,15 @@ Plotly.newPlot('myDiv', data, layout);
 function stacked_bar() {
 var trace1 = {
   x: ids, 
-  y: {{ x1 }}, 
-  name: 'Type-1 Protein', 
+  y: {{ x1|Slice:80 }}, 
+  name: 'Immunoreactive Protein', 
   type: 'bar'
 };
 
 var trace2 = {
   x: ids, 
-  y: {{ x2 }}, 
-  name: 'Type-2 Protein', 
+  y: {{ x2|Slice:80 }}, 
+  name: 'Non-Immunoreactive Protein', 
   type: 'bar'
 };
 
@@ -299,9 +324,9 @@ Plotly.newPlot('myDiv', data, layout);
 function heat_map() {
 var data = [
   {
-  z: [{{ x1 }}, diction[tableData], {{ x2 }}], 
+  z: [{{ x1|Slice:80 }}, diction[tableData], {{ x2|Slice:80 }}], 
   x: ids,
-  y: ['Type-1 Protein', tableData, 'Type-2 Protein'],
+  y: ['Immunoreactive', tableData, 'Non-Immunoreactive'],
   type: 'heatmap'
   }
 ];
@@ -310,6 +335,6 @@ Plotly.newPlot('myDiv', data, layout);
 }
 </script>
 
-</center> 
+
 
 {% endblock %}
