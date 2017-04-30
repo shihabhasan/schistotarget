@@ -28,14 +28,15 @@ from datetime import datetime
 
 from .models import Immuno
 
-idx="Sequence ID, Toal length of the proetin sequence, Percentage of alanine, Percentage of cysteine, Percentage of aspartic acid, \
+idx="Sequence ID, Length of sequence, Percentage of alanine, Percentage of cysteine, Percentage of aspartic acid, \
 Percentage of glutamic acid, Percentage of phenylalanine, Percentage of glycine, Percentage of histidine, Percentage of isoleucine, \
 Percentage of lysine, Percentage of leucine, Percentage of methionine, Percentage of asparagine, Percentage of proline, \
 Percentage of glutamine, Percentage of arginine, Percentage of serine, Percentage of threonine, Percentage of valine, \
 Percentage of tryptophan, Percentage of tyrosine, Molecular Weight, Aromaticity, Instability Index, Isoelectric Point, \
-Grand average of hydropathy (GRAVY), Secondary helix fraction, Secondary turn fraction, Secondary sheet fraction, \
-Average Residue Weight, Charge, Molar Extinction Coefficient A280, \
-Absobance A280, Probability of Expression Inclusion Bodies, DayhoffStat of alanine, DayhoffStat of cysteine, DayhoffStat of aspartic acid, \
+Grand average of hydropathy (GRAVY), Secondary helix fraction, Secondary turn fraction, Secondary sheet fraction, Average Residue Weight, \
+Average carbon sparing, Average nitrogen sparing, Average sulphur sparing, Average oxygen sparing, Average hydrogen sparing, \
+Charge, Molar Extinction Coefficient A280, Absobance A280, Probability of Expression Inclusion Bodies, \
+DayhoffStat of alanine, DayhoffStat of cysteine, DayhoffStat of aspartic acid, \
 DayhoffStat of glutamic acid, DayhoffStat of phenylalanine, DayhoffStat of glycine, DayhoffStat of histidine, DayhoffStat of isoleucine, \
 DayhoffStat of lysine, DayhoffStat of leucine, DayhoffStat of methionine, DayhoffStat of asparagine, DayhoffStat of proline, DayhoffStat of glutamine, \
 DayhoffStat of arginine, DayhoffStat of serine, DayhoffStat of threonine, DayhoffStat of valine, DayhoffStat of tryptophan, DayhoffStat of tyrosine, \
@@ -45,7 +46,7 @@ Percentage of secondary sheet, Percentage of secondary turns, Percentage of seco
 N-linked glycosylation sites, Generic phosphorylation sites of serine, Generic phosphorylation sites of threonine, Generic phosphorylation sites of tyrosine, \
 Arginine and lysine propeptide cleavage sites, Binding Regions in Disordered Proteins, \
 Mitochondrial targeting peptide (mTP), Secretory pathway signal peptide (SP), Other subcellular location, \
-Linear B-cell epitopes, Class I Immunogenicity"
+Linear B-cell epitopes, Class I Immunogenicity, Transmembrane helices count"
 
 amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
 for a1 in str(amino_acids):
@@ -54,7 +55,7 @@ for a1 in str(amino_acids):
 
 
 
-#---------------------SURFACE BACKGROUND TASK------------------
+#---------------------IMMUNOREACTIVITY BACKGROUND TASK------------------
 @task
 def run_immuno(filename, input_email):    
     parameter=""
@@ -193,9 +194,9 @@ Multi-layer Perceptron Prediction,Multi-layer Perceptron Decision Score,Multi-la
                 else:
                     probability='NA'
                 if pred==1.0:
-                    pred='Immuno Protein'
+                    pred='Immunoreactive Protein'
                 if pred==0.0:
-                    pred='Non-Immuno Protein'
+                    pred='Non-Immunoreactive Protein'
 
                 if probability=='NA':
                     if decision=='NA':

@@ -193,9 +193,9 @@ Multi-layer Perceptron Prediction,Multi-layer Perceptron Decision Score,Multi-la
                 else:
                     probability='NA'
                 if pred==1.0:
-                    pred='Immuno Protein'
+                    pred='Immunoreactive Protein'
                 if pred==0.0:
-                    pred='Non-Immuno Protein'
+                    pred='Non-Immunoreactive Protein'
 
                 if probability=='NA':
                     if decision=='NA':
