@@ -305,8 +305,6 @@
 		background: rgba(204, 102, 0,.7);	
 
 	}
-
-
-.table {
-    background-color: white;
-} 
+.glass{
+  background:rgba(0,0,0,0.2);
+}
