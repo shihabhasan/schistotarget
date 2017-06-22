@@ -20,9 +20,10 @@ from app import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.home, name='index'),
     url(r'^home$', views.home, name='home'),
-    url(r'^help$', views.help, name='help'),
+    url(r'^help$', views.manual, name='help'),
+    url(r'^forum$', views.forum, name='forum'),
     url(r'^contact$', views.contact, name='contact'),
     url(r'^thanks$', views.thanks, name='thanks'),
     
@@ -30,6 +31,11 @@ urlpatterns = [
     url(r'^immuno_predict$', views.immuno_predict, name='immuno_predict'),
     url(r'^immuno_progress/(?P<task_id>[A-Za-z0-9-]+)$', views.immuno_progress, name='immuno_progress'),
     url(r'^immuno_results/(?P<task_id>[A-Za-z0-9-]+)$', views.immuno_results, name='immuno_results'),
+
+    url(r'^feature_app$', views.feature_app, name='feature_app'),
+    url(r'^feature_predict$', views.feature_predict, name='feature_predict'),
+    url(r'^feature_progress/(?P<task_id>[A-Za-z0-9-]+)$', views.feature_progress, name='feature_progress'),
+    url(r'^feature_results/(?P<task_id>[A-Za-z0-9-]+)$', views.feature_results, name='feature_results'),
 
     url(r'^IgE_app$', views.IgE_app, name='IgE_app'),
     url(r'^IgE_predict$', views.IgE_predict, name='IgE_predict'),

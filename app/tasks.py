@@ -28,25 +28,26 @@ from datetime import datetime
 
 from .models import Immuno
 
-idx="Sequence ID, Length of sequence, Percentage of alanine, Percentage of cysteine, Percentage of aspartic acid, \
+featuresList="Percentage of alanine, Percentage of cysteine, Percentage of aspartic acid, \
 Percentage of glutamic acid, Percentage of phenylalanine, Percentage of glycine, Percentage of histidine, Percentage of isoleucine, \
 Percentage of lysine, Percentage of leucine, Percentage of methionine, Percentage of asparagine, Percentage of proline, \
 Percentage of glutamine, Percentage of arginine, Percentage of serine, Percentage of threonine, Percentage of valine, \
 Percentage of tryptophan, Percentage of tyrosine, Molecular Weight, Aromaticity, Instability Index, Isoelectric Point, \
-Grand average of hydropathy (GRAVY), Secondary helix fraction, Secondary turn fraction, Secondary sheet fraction, Average Residue Weight, \
-Average carbon sparing, Average nitrogen sparing, Average sulphur sparing, Average oxygen sparing, Average hydrogen sparing, \
-Charge, Molar Extinction Coefficient A280, Absobance A280, Probability of Expression Inclusion Bodies, \
-DayhoffStat of alanine, DayhoffStat of cysteine, DayhoffStat of aspartic acid, \
+Grand average of hydropathy (GRAVY), Secondary helix fraction, Secondary turn fraction, Secondary sheet fraction, \
+Average Residue Weight, Average carbon sparing, Average nitrogen sparing, Average sulphur sparing, \
+Average oxygen sparing, Average hydrogen sparing, Charge, Molar Extinction Coefficient A280, \
+Absobance A280, Probability of Expression Inclusion Bodies, DayhoffStat of alanine, DayhoffStat of cysteine, DayhoffStat of aspartic acid, \
 DayhoffStat of glutamic acid, DayhoffStat of phenylalanine, DayhoffStat of glycine, DayhoffStat of histidine, DayhoffStat of isoleucine, \
 DayhoffStat of lysine, DayhoffStat of leucine, DayhoffStat of methionine, DayhoffStat of asparagine, DayhoffStat of proline, DayhoffStat of glutamine, \
 DayhoffStat of arginine, DayhoffStat of serine, DayhoffStat of threonine, DayhoffStat of valine, DayhoffStat of tryptophan, DayhoffStat of tyrosine, \
 Percentage of tiny mole, Percentage of small mole, Percentage of aliphatic mole, Percentage of aromatic mole , Percentage of polar mole, \
 Percentage of non polar mole, Percentage of charged mole, Percentage of acidic mole, Percentage of basic mole, Percentage of secondary helix, \
 Percentage of secondary sheet, Percentage of secondary turns, Percentage of secondary coil, C-mannosylation sites, Proteasomal cleavages (MHC ligands), \
-N-linked glycosylation sites, Generic phosphorylation sites of serine, Generic phosphorylation sites of threonine, Generic phosphorylation sites of tyrosine, \
-Arginine and lysine propeptide cleavage sites, Binding Regions in Disordered Proteins, \
+N-linked glycosylation sites, Arginine and lysine propeptide cleavage sites, Binding Regions in Disordered Proteins, \
 Mitochondrial targeting peptide (mTP), Secretory pathway signal peptide (SP), Other subcellular location, \
-Linear B-cell epitopes, Class I Immunogenicity, Transmembrane helices count"
+Linear B-cell epitopes, Class I Immunogenicity Score, Count of transmembrane helices"
+
+idx="Sequence ID, "+featuresList
 
 amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
 for a1 in str(amino_acids):
@@ -157,7 +158,7 @@ Multi-layer Perceptron Prediction,Multi-layer Perceptron Decision Score,Multi-la
             SVC(kernel='rbf', C=12.0, gamma=2.0, probability=True),
             SVC(kernel="linear", C=100, probability=True),
             DecisionTreeClassifier(max_depth=k),
-            RandomForestClassifier(max_depth=k, n_estimators=k, max_features=480),
+            RandomForestClassifier(max_depth=k, n_estimators=k, max_features=482),
             AdaBoostClassifier(),
             GaussianNB(),
             LinearDiscriminantAnalysis(),
@@ -289,8 +290,8 @@ Multi-layer Perceptron Prediction,Multi-layer Perceptron Decision Score,Multi-la
 
     if input_email!="":
         command = "echo 'Your SchistoTarget immunoreactive protein prediction result is ready for job ID: "+run_immuno.request.id+"\n\n"+\
-                "You can view the interactive tables and plots by the link: http://schistotarget.net/immuno_results/"+run_immuno.request.id+"\n\n\n"+\
-                "Kind regards,\n\nLutz Krause & Shihab Hasan\nComputational Medical Genomics Group, The University of Queensland Diamantina Institute' | mutt -a "+filename+"'_prediction.csv' -a "+filename+"'_result.csv' -a "+filename+"'_features.csv' -s 'schistotarget Immunoreactivity Protein Prediction Result for job ID '"+run_immuno.request.id+" -- "+input_email
+                "You can view the interactive tables and plots by the link: http://schistotarget.bioapps.org/immuno_results/"+run_immuno.request.id+"\n\n\n"+\
+                "Kind regards,\n\nLutz Krause & Shihab Hasan\nComputational Medical Genomics Group, The University of Queensland Diamantina Institute' | mutt -a "+filename+"'_prediction.csv' -a "+filename+"'_result.csv' -a "+filename+"'_features.csv' -s 'SchistoTarget Immunoreactivity Protein Prediction Result for job ID '"+run_immuno.request.id+" -- "+input_email
         subprocess.call(command, shell=(sys.platform!="Linux"))
 
 

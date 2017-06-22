@@ -190,37 +190,37 @@ document.getElementById('selection').innerHTML = "Selected: " + seqID;
 </div>
 <script>
   /* JAVASCRIPT CODE GOES HERE */
-ids=['Length of sequence', 'Percentage of alanine', 'Percentage of cysteine', 'Percentage of aspartic acid', 
-'Percentage of glutamic acid', 'Percentage of phenylalanine', 'Percentage of glycine', 'Percentage of histidine', 'Percentage of isoleucine', 
-'Percentage of lysine', 'Percentage of leucine', 'Percentage of methionine', 'Percentage of asparagine', 'Percentage of proline', 
-'Percentage of glutamine', 'Percentage of arginine', 'Percentage of serine', 'Percentage of threonine', 'Percentage of valine', 
-'Percentage of tryptophan', 'Percentage of tyrosine', 'Molecular weight', 'Aromaticity', 'Instability Index', 'Isoelectric Point', 
-'Grand average of hydropathy (GRAVY)', 'Secondary helix fraction', 'Secondary turn fraction', 'Secondary sheet fraction', 
-'Average Residue Weight', 'Average carbon sparing', 'Average nitrogen sparing', 'Average sulphur sparing', 'Average oxygen sparing', 'Average hydrogen sparing',
-'Charge', 'Molar Extinction Coefficient A280', 'Absobance A280', 'Probability of Expression Inclusion Bodies', 
-'DayhoffStat of alanine', 'DayhoffStat of cysteine', 'DayhoffStat of aspartic acid', 
-'DayhoffStat of glutamic acid', 'DayhoffStat of phenylalanine', 'DayhoffStat of glycine', 'DayhoffStat of histidine', 'DayhoffStat of isoleucine', 
-'DayhoffStat of lysine', 'DayhoffStat of leucine', 'DayhoffStat of methionine', 'DayhoffStat of asparagine', 'DayhoffStat of proline', 'DayhoffStat of glutamine', 
-'DayhoffStat of arginine', 'DayhoffStat of serine', 'DayhoffStat of threonine', 'DayhoffStat of valine', 'DayhoffStat of tryptophan', 'DayhoffStat of tyrosine', 
-'Percentage of tiny mole', 'Percentage of small mole', 'Percentage of aliphatic mole', 'Percentage of aromatic mole ', 'Percentage of polar mole', 
-'Percentage of non polar mole', 'Percentage of charged mole', 'Percentage of acidic mole', 'Percentage of basic mole', 'Percentage of secondary helix', 
-'Percentage of secondary sheet', 'Percentage of secondary turns', 'Percentage of secondary coil', 'C-mannosylation sites', 'Proteasomal cleavages (MHC ligands)', 
-'N-linked glycosylation sites', 'Generic phosphorylation sites of serine', 'Generic phosphorylation sites of threonine', 'Generic phosphorylation sites of tyrosine', 
-'Arginine and lysine propeptide cleavage sites', 'Binding regions in disordered proteins', 'Mitochondrial targeting peptide (mTP)', 
-'Secretory pathway signal peptide (SP)', 'Other subcellular location', 'Linear B-cell epitopes', 'Class I Immunogenicity', 'Transmembrane helices count']
+ids=['Percentage of alanine', 'Percentage of cysteine', 'Percentage of aspartic acid',
+'Percentage of glutamic acid', 'Percentage of phenylalanine', 'Percentage of glycine', 'Percentage of histidine', 'Percentage of isoleucine',
+'Percentage of lysine', 'Percentage of leucine', 'Percentage of methionine', 'Percentage of asparagine', 'Percentage of proline',
+'Percentage of glutamine', 'Percentage of arginine', 'Percentage of serine', 'Percentage of threonine', 'Percentage of valine',
+'Percentage of tryptophan', 'Percentage of tyrosine', 'Molecular Weight', 'Aromaticity', 'Instability Index', 'Isoelectric Point',
+'Grand average of hydropathy (GRAVY)', 'Secondary helix fraction', 'Secondary turn fraction', 'Secondary sheet fraction',
+'Average Residue Weight', 'Average carbon sparing', 'Average nitrogen sparing', 'Average sulphur sparing',
+'Average oxygen sparing', 'Average hydrogen sparing', 'Charge', 'Molar Extinction Coefficient A280',
+'Absobance A280', 'Probability of Expression Inclusion Bodies', 'DayhoffStat of alanine', 'DayhoffStat of cysteine', 'DayhoffStat of aspartic acid',
+'DayhoffStat of glutamic acid', 'DayhoffStat of phenylalanine', 'DayhoffStat of glycine', 'DayhoffStat of histidine', 'DayhoffStat of isoleucine',
+'DayhoffStat of lysine', 'DayhoffStat of leucine', 'DayhoffStat of methionine', 'DayhoffStat of asparagine', 'DayhoffStat of proline', 'DayhoffStat of glutamine',
+'DayhoffStat of arginine', 'DayhoffStat of serine', 'DayhoffStat of threonine', 'DayhoffStat of valine', 'DayhoffStat of tryptophan', 'DayhoffStat of tyrosine',
+'Percentage of tiny mole', 'Percentage of small mole', 'Percentage of aliphatic mole', 'Percentage of aromatic mole ', 'Percentage of polar mole',
+'Percentage of non polar mole', 'Percentage of charged mole', 'Percentage of acidic mole', 'Percentage of basic mole', 'Percentage of secondary helix',
+'Percentage of secondary sheet', 'Percentage of secondary turns', 'Percentage of secondary coil', 'C-mannosylation sites', 'Proteasomal cleavages (MHC ligands)',
+'N-linked glycosylation sites', 'Arginine and lysine propeptide cleavage sites', 'Binding Regions in Disordered Proteins',
+'Mitochondrial targeting peptide (mTP)', 'Secretory pathway signal peptide (SP)', 'Other subcellular location',
+'Linear B-cell epitopes', 'Class I Immunogenicity Score', 'Count of transmembrane helices']
 
 
 
 diction = {
         {% for k, v in x3.iteritems %}
-        "{{ k }}": {{ v|Slice:86 }}{% if not forloop.last %},{% endif %}
+        "{{ k }}": {{ v|Slice:82 }}{% if not forloop.last %},{% endif %}
         {% endfor %}
     }
   /* STRIP PLOT */
 function strip_plot() {
 var trace1 = {
   x: ids,
-  y: {{ x1|Slice:86 }}, 
+  y: {{ x1|Slice:82 }}, 
   mode: 'markers',
   type: 'scatter',
   name: 'Immunoreactive Protein',
@@ -229,7 +229,7 @@ var trace1 = {
 
 var trace2 = {
   x: ids,
-  y: {{ x2|Slice:86 }}, 
+  y: {{ x2|Slice:82 }}, 
   mode: 'markers',
   type: 'scatter',
   name: 'Non-Immunoreactive Protein', 
@@ -259,14 +259,14 @@ Plotly.newPlot('myDiv', data, layout);
 function grouped_bar() {
 var trace1 = {
   x: ids, 
-  y: {{ x1|Slice:86 }}, 
+  y: {{ x1|Slice:82 }}, 
   name: 'Immunoreactive Protein', 
   type: 'bar'
 };
 
 var trace2 = {
   x: ids, 
-  y: {{ x2|Slice:86 }}, 
+  y: {{ x2|Slice:82 }}, 
   name: 'Non-Immunoreactive Protein', 
   type: 'bar'
 };
@@ -292,14 +292,14 @@ Plotly.newPlot('myDiv', data, layout);
 function stacked_bar() {
 var trace1 = {
   x: ids, 
-  y: {{ x1|Slice:86 }}, 
+  y: {{ x1|Slice:82 }}, 
   name: 'Immunoreactive Protein', 
   type: 'bar'
 };
 
 var trace2 = {
   x: ids, 
-  y: {{ x2|Slice:86 }}, 
+  y: {{ x2|Slice:82 }}, 
   name: 'Non-Immunoreactive Protein', 
   type: 'bar'
 };
@@ -325,7 +325,7 @@ Plotly.newPlot('myDiv', data, layout);
 function heat_map() {
 var data = [
   {
-  z: [{{ x1|Slice:86 }}, diction[tableData], {{ x2|Slice:86 }}], 
+  z: [{{ x1|Slice:82 }}, diction[tableData], {{ x2|Slice:82 }}], 
   x: ids,
   y: ['Immunoreactive', tableData, 'Non-Immunoreactive'],
   type: 'heatmap'

@@ -15,7 +15,7 @@
 		<h3 class="widget-title">Send Us A Message</h3>
 		<form class="contact-form" method='post' action='thanks' enctype="multipart/form-data"> {% csrf_token %}
 			<fieldset>
-				<input type="text" class="name" name="name" placeholder="Name...">
+				<input type="text" class="name" name="name" placeholder="Name..." required>
 			</fieldset> 
 			<fieldset>
 				<input type="email" class="email" name="email" placeholder="Email..." required>
@@ -24,7 +24,7 @@
 				<input type="text" class="subject" name="subject" placeholder="Subject...">
 			</fieldset>
 			<fieldset>
-				<textarea name="message" name="message" cols="30" rows="4" placeholder="Message.."></textarea>
+				<textarea name="message" name="message" cols="30" rows="4" placeholder="Message.." required></textarea>
 			</fieldset>
 			<fieldset>
 				<input type="submit" class="button" id="button" value="Send Message">
