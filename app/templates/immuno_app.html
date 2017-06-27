@@ -7,13 +7,22 @@
 <div class="call-action call-action-boxed call-action-style1 glass" style="centre">
 <font color="#00476B" face="Copperplate Gothic Light" size="5"> <strong> <div class="accent-color"> Immunoreactivity Prediction </div> </strong> </font>
 
-<form name='immuno' id='immuno' method='post' action='immuno_predict' enctype="multipart/form-data"> {% csrf_token %} <!-- action is the URL you want to move to next-->
-   <p> 
-   <h3> Enter FASTA sequence(s) </h3> 
+<form name='immunoForm' id='immunoForm' method='post' action='immuno_predict' enctype="multipart/form-data"> {% csrf_token %} <!-- action is the URL you want to move to next-->
+       <p> Select features selection mode <i class="fa fa-info-circle fa-lg" title="More Conservation mode uses the features differentially distributed between 2 classes based on t-test. Less Conservation
+mode uses all available 482 features."></i></p>
+	<div class="onoffswitch">
+		<input type="checkbox" name="featureMode" class="onoffswitch-checkbox" id="featureMode" checked>
+		<label class="onoffswitch-label" for="featureMode">
+			<span class="onoffswitch-inner"></span>
+			<span class="onoffswitch-switch"></span>
+		</label>
+	</div>
+    <p>
+   Enter FASTA sequence(s)
    <textarea type='text' name='input_sequences' id="input_sequences" placeholder="FASTA sequence(s)" class="form-control" rows="12" style="min-width: 100%"> </textarea> 
    </p>
    <p> 
-   <h3> Or, Upload FASTA File </h3>  
+   Or, Upload FASTA File
    <input type='file' name='input_file'> 
    </p>
    <p>To get the result please enter your email address (optional): <input type="email" name="input_email" placeholder="yourname@example.com"></p>
@@ -21,8 +30,7 @@
    <input type="reset" value="Reset" class="btn-primary" />
    <p>
    <br> </br> 
-   <input type='submit' value='Submit' class="pull-right" /> <!-- value is the text that will appear on the button. --> 
-   
+   <input type='submit' value='Submit' class="pull-right" /> <!-- value is the text that will appear on the button. -->
    <br> </br>
    </p>
 </form>
@@ -32,7 +40,7 @@
 <!-- here comes the javascript -->
 <script type="text/javascript">
 document.getElementById("input_load_example").onclick = function() {
-document.immuno.input_sequences.value = 
+document.immunoForm.input_sequences.value =
 '>gi|121698|sp|P15964.1|GST26_SCHMA\n'
 +'MAPKFGYWKVKGLVQPTRLLLEHLEETYEERAYDRNEIDAWSNDKFKLGLEFPNLPYYIDGDFKLTQSMAIIRYIADKHNMLGACPKERAEISMLEGAVLDIRMGVLRIAYNKEYETLKVDFLNKLPGRLKMFEDRLSNKTYLNGNCVTHPDFMLYDALDVVLYMDSQCLNEFPKLVSFKKCIEDLPQIKNYLNSSRYIKWPLQGWDATFGGGDTPPK\n'
 +'>gi|13021614|gb|AAK11492.1|U57714_1\n'
@@ -44,7 +52,6 @@ document.immuno.input_sequences.value =
 ;
 }
 </script>
-
 
 {% endblock %}
 

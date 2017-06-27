@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'css/checkbox.css' %}" type="text/css" media="screen">
 
 <p> 
-<h2 style="background-color:#00476B; color:white"> <center> Immunoreactive protein prediction result </center> </h2> 
+<div> <h2 style="background-color:#00476B; color:white"> <center> Immunoreactive protein prediction result </center> </h2></div>
 </p>
 
 {% load my_templatetags %}
@@ -11,7 +14,7 @@
 <!--- OUTPUT TABLE --->
 
 <center>
-<div style="width: 70%">
+<div style="padding: 3em; background:rgba(255, 255, 255,0.7)";>
 <p><h1 class="classic-title text-center accent-color"><strong>Prediction</strong></h1></p>
 
 <table id="immuno_table" class="display" cellspacing="0" width="100%" >
@@ -36,11 +39,42 @@
 </table>
 
 <div id="selection"></div>
-<br></br><h1></h1>
-
+</div>
 <br></br>
-<p><h1 class="classic-title text-center accent-color"><strong>All Methods</strong></h1></p>
-<div > 
+<div style="padding: 3em; background:rgba(255, 255, 255,0.7)";>
+<p><h1 class="classic-title text-center accent-color"><strong>Methods</strong></h1></p>
+
+    <p><h2>Number of classifiers can be modified by selecting/deselecting the classifiers</h2></p>
+
+<div class="container" align="left">
+<div class="checkbox checkbox-primary">
+<div class="col-xs-12 col-sm-6">
+
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="gbm" data-section="Supervised Machine Learning Technique" selected="selected" data-column="1,2,3" checked><label>1. Gradient Boosting Machine (GBM)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="svm_rbf" data-section="Supervised Machine Learning Technique" selected="selected" data-column="4,5,6" checked><label>2. Support Vector Machine with Radial Bias Function (RBF SVM)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="svm_linear" data-section="Supervised Machine Learning Technique" selected="selected" data-column="7,8,9" checked><label>3. SVMs with linear kernel (Linear SVM)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="decision_tree" data-section="Supervised Machine Learning Technique" selected="selected" data-column="10,11,12" checked><label>4. Decision Tree</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="random_forest" data-section="Supervised Machine Learning Technique" selected="selected" data-column="13,14,15" checked><label>5. Random Forest</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="ada_boost" data-section="Supervised Machine Learning Technique" selected="selected" data-column="16,17,18" checked><label>6. Ada Boost</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="naive_bayes" data-section="Supervised Machine Learning Technique" selected="selected" data-column="19,20,21" checked><label>7. Gaussian Naive Bayes (GNB)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="lda" data-section="Supervised Machine Learning Technique" selected="selected" data-column="22,23,24" checked><label>8. Linear Discriminant Analysis (LDA)</label><br>
+    <input class="toggle-vis" type="checkbox" name="classifiers" value="qda" data-section="Supervised Machine Learning Technique" selected="selected" data-column="25,26,27" checked><label>8. Quadratic Discriminant Analysis (QDA)</label><br>
+</div>
+<div class="col-xs-12 col-sm-6">
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="ridge_regression" data-section="Supervised Machine Learning Technique" selected="selected" data-column="28,29,30" checked><label>9. Ridge regression</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="sgd" data-section="Supervised Machine Learning Technique" selected="selected" data-column="31,32,33" checked><label>10. Stochastic gradient descent (SGD)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="perceptron" data-section="Supervised Machine Learning Technique" selected="selected" data-column="34,35,36" checked><label>11. Perceptron</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="passive_aggressive" data-section="Supervised Machine Learning Technique" selected="selected" data-column="37,38,39" checked><label>12. Passive aggressive</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="bernoulliNB" data-section="Supervised Machine Learning Technique" selected="selected" data-column="40,41,42" checked><label>13. Bernoulli Naive Bayes (BNB)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="multinomialNB" data-section="Supervised Machine Learning Technique" selected="selected" data-column="43,44,45" checked><label>14. Multinomial Naive Bayes (MNB)</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="nearest_centroid" data-section="Supervised Machine Learning Technique" selected="selected" data-column="46,47,48" checked><label>15. Nearest Centroid method</label><br>
+	<input class="toggle-vis" type="checkbox" name="classifiers" value="mlp" data-section="Supervised Machine Learning Technique" selected="selected" data-column="49,50,51" checked><label>16. Multi-layer Perceptron (MLP)</label><br>
+</div>
+</div>
+</div>
+<br></br>
+
+<div>
 <table id="allPredictions" class="display" cellspacing="0" width="100%" >
 
 <thead>
@@ -63,12 +97,11 @@
 </tbody>
 </table>
 </div>
-
-<br></br><h1></h1>
-
+</div>
 <br></br>
+<div style="padding: 3em; background:rgba(255, 255, 255,0.7)";>
 <p><h1 class="classic-title text-center accent-color"><strong>Features</strong></h1></p>
-<div > 
+<div >
 <table id="immuno_feature" class="table" cellspacing="0" width="100%" >
 
 <thead>
@@ -91,11 +124,10 @@
 </tbody>
 </table>
 </div>
-<br></br>
-</center> 
+</center>
 
 </div>
-
+</div>
 
 <script>
 $(document).ready( function () {
@@ -156,10 +188,15 @@ $(document).ready( function () {
       $(this).toggleClass('selected');
       tableData=table.row( this ).data()[0];
 	  select(tableData);
-} );
-  
-  } );
-  
+    } );
+
+    var table2 = $('#allPredictions').DataTable();
+	$('input.toggle-vis').change (function () {
+	table2.columns($(this).attr('data-column')).visible($(this).is(':checked'));
+	} );
+
+  } )
+
   function select(seqID)
 {
 document.getElementById('selection').innerHTML = "Selected: " + seqID;
@@ -168,7 +205,7 @@ document.getElementById('selection').innerHTML = "Selected: " + seqID;
 </script>
 
 
-<center> 
+<center>
 <br></br>
 <p><h1 class="classic-title text-center accent-color"><strong>Draw Charts<strong></h1></p>
 <p>Click on a row of the Prediction table, then click any of follwing buttons to draw plot</p>
@@ -190,37 +227,18 @@ document.getElementById('selection').innerHTML = "Selected: " + seqID;
 </div>
 <script>
   /* JAVASCRIPT CODE GOES HERE */
-ids=['Percentage of alanine', 'Percentage of cysteine', 'Percentage of aspartic acid',
-'Percentage of glutamic acid', 'Percentage of phenylalanine', 'Percentage of glycine', 'Percentage of histidine', 'Percentage of isoleucine',
-'Percentage of lysine', 'Percentage of leucine', 'Percentage of methionine', 'Percentage of asparagine', 'Percentage of proline',
-'Percentage of glutamine', 'Percentage of arginine', 'Percentage of serine', 'Percentage of threonine', 'Percentage of valine',
-'Percentage of tryptophan', 'Percentage of tyrosine', 'Molecular Weight', 'Aromaticity', 'Instability Index', 'Isoelectric Point',
-'Grand average of hydropathy (GRAVY)', 'Secondary helix fraction', 'Secondary turn fraction', 'Secondary sheet fraction',
-'Average Residue Weight', 'Average carbon sparing', 'Average nitrogen sparing', 'Average sulphur sparing',
-'Average oxygen sparing', 'Average hydrogen sparing', 'Charge', 'Molar Extinction Coefficient A280',
-'Absobance A280', 'Probability of Expression Inclusion Bodies', 'DayhoffStat of alanine', 'DayhoffStat of cysteine', 'DayhoffStat of aspartic acid',
-'DayhoffStat of glutamic acid', 'DayhoffStat of phenylalanine', 'DayhoffStat of glycine', 'DayhoffStat of histidine', 'DayhoffStat of isoleucine',
-'DayhoffStat of lysine', 'DayhoffStat of leucine', 'DayhoffStat of methionine', 'DayhoffStat of asparagine', 'DayhoffStat of proline', 'DayhoffStat of glutamine',
-'DayhoffStat of arginine', 'DayhoffStat of serine', 'DayhoffStat of threonine', 'DayhoffStat of valine', 'DayhoffStat of tryptophan', 'DayhoffStat of tyrosine',
-'Percentage of tiny mole', 'Percentage of small mole', 'Percentage of aliphatic mole', 'Percentage of aromatic mole ', 'Percentage of polar mole',
-'Percentage of non polar mole', 'Percentage of charged mole', 'Percentage of acidic mole', 'Percentage of basic mole', 'Percentage of secondary helix',
-'Percentage of secondary sheet', 'Percentage of secondary turns', 'Percentage of secondary coil', 'C-mannosylation sites', 'Proteasomal cleavages (MHC ligands)',
-'N-linked glycosylation sites', 'Arginine and lysine propeptide cleavage sites', 'Binding Regions in Disordered Proteins',
-'Mitochondrial targeting peptide (mTP)', 'Secretory pathway signal peptide (SP)', 'Other subcellular location',
-'Linear B-cell epitopes', 'Class I Immunogenicity Score', 'Count of transmembrane helices']
-
-
-
+ids={{ json_ids|safe }}
+if (ids.length == 22) {
 diction = {
         {% for k, v in x3.iteritems %}
-        "{{ k }}": {{ v|Slice:82 }}{% if not forloop.last %},{% endif %}
+        "{{ k }}": {{ v|Slice:22 }}{% if not forloop.last %},{% endif %}
         {% endfor %}
     }
   /* STRIP PLOT */
 function strip_plot() {
 var trace1 = {
   x: ids,
-  y: {{ x1|Slice:82 }}, 
+  y: {{ x1|Slice:22 }},
   mode: 'markers',
   type: 'scatter',
   name: 'Immunoreactive Protein',
@@ -229,19 +247,19 @@ var trace1 = {
 
 var trace2 = {
   x: ids,
-  y: {{ x2|Slice:82 }}, 
+  y: {{ x2|Slice:22 }},
   mode: 'markers',
   type: 'scatter',
-  name: 'Non-Immunoreactive Protein', 
+  name: 'Non-Immunoreactive Protein',
   marker: { size: 10 }
 };
 
 var trace3 = {
   x: ids,
-  y: diction[tableData], 
+  y: diction[tableData],
   mode: 'markers',
   type: 'scatter',
-  name: tableData, 
+  name: tableData,
   marker: { size: 10 }
 };
 
@@ -250,31 +268,28 @@ var data = [trace1, trace2, trace3];
 var layout = {margin: { b: 400 }, title:'STRIP CHART'};
 
 Plotly.newPlot('myDiv', data, layout);
-}  
-</script>
+}
 
-
- <script>
   /* GROUPED BAR CHART */
 function grouped_bar() {
 var trace1 = {
-  x: ids, 
-  y: {{ x1|Slice:82 }}, 
-  name: 'Immunoreactive Protein', 
+  x: ids,
+  y: {{ x1|Slice:22 }},
+  name: 'Immunoreactive Protein',
   type: 'bar'
 };
 
 var trace2 = {
-  x: ids, 
-  y: {{ x2|Slice:82 }}, 
-  name: 'Non-Immunoreactive Protein', 
+  x: ids,
+  y: {{ x2|Slice:22 }},
+  name: 'Non-Immunoreactive Protein',
   type: 'bar'
 };
 
 var trace3 = {
-  x: ids, 
-  y: diction[tableData], 
-  name: tableData, 
+  x: ids,
+  y: diction[tableData],
+  name: tableData,
   type: 'bar'
 };
 
@@ -284,30 +299,27 @@ var layout = {margin: { b: 400 }, xaxis: { showgrid: true }, title: 'GROUPED BAR
 
 Plotly.newPlot('myDiv', data, layout);
 }
-</script>
 
-
- <script>
   /* STACKED BAR CHART */
 function stacked_bar() {
 var trace1 = {
-  x: ids, 
-  y: {{ x1|Slice:82 }}, 
-  name: 'Immunoreactive Protein', 
+  x: ids,
+  y: {{ x1|Slice:22 }},
+  name: 'Immunoreactive Protein',
   type: 'bar'
 };
 
 var trace2 = {
-  x: ids, 
-  y: {{ x2|Slice:82 }}, 
-  name: 'Non-Immunoreactive Protein', 
+  x: ids,
+  y: {{ x2|Slice:22 }},
+  name: 'Non-Immunoreactive Protein',
   type: 'bar'
 };
 
 var trace3 = {
-  x: ids, 
-  y: diction[tableData], 
-  name: tableData, 
+  x: ids,
+  y: diction[tableData],
+  name: tableData,
   type: 'bar'
 };
 
@@ -317,25 +329,137 @@ var layout = {margin: { b: 400 }, xaxis: { showgrid: true }, title: 'STACKED BAR
 
 Plotly.newPlot('myDiv', data, layout);
 }
-</script>
 
-
-<script>
   /* HEAT MAP */
 function heat_map() {
 var data = [
   {
-  z: [{{ x1|Slice:82 }}, diction[tableData], {{ x2|Slice:82 }}], 
+  z: [{{ x1|Slice:22 }}, diction[tableData], {{ x2|Slice:22 }}],
   x: ids,
-  y: ['Immunoreactive', tableData, 'Non-Immunoreactive'],
+  y: ['Surface', tableData, 'Non-Surface'],
   type: 'heatmap'
   }
 ];
 var layout = {margin: { l: 200, b: 400 }, title: 'HEAT MAP'};
 Plotly.newPlot('myDiv', data, layout);
 }
+}
+else {
+diction = {
+        {% for k, v in x3.iteritems %}
+        "{{ k }}": {{ v|Slice:82 }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    }
+  /* STRIP PLOT */
+function strip_plot() {
+var trace1 = {
+  x: ids,
+  y: {{ x1|Slice:82 }},
+  mode: 'markers',
+  type: 'scatter',
+  name: 'Immunoreactive Protein',
+  marker: { size: 10 }
+};
+
+var trace2 = {
+  x: ids,
+  y: {{ x2|Slice:82 }},
+  mode: 'markers',
+  type: 'scatter',
+  name: 'Non-Immunoreactive Protein',
+  marker: { size: 10 }
+};
+
+var trace3 = {
+  x: ids,
+  y: diction[tableData],
+  mode: 'markers',
+  type: 'scatter',
+  name: tableData,
+  marker: { size: 10 }
+};
+
+var data = [trace1, trace2, trace3];
+
+var layout = {margin: { b: 400 }, title:'STRIP CHART'};
+
+Plotly.newPlot('myDiv', data, layout);
+}
+
+  /* GROUPED BAR CHART */
+function grouped_bar() {
+var trace1 = {
+  x: ids,
+  y: {{ x1|Slice:82 }},
+  name: 'Immunoreactive Protein',
+  type: 'bar'
+};
+
+var trace2 = {
+  x: ids,
+  y: {{ x2|Slice:82 }},
+  name: 'Non-Immunoreactive Protein',
+  type: 'bar'
+};
+
+var trace3 = {
+  x: ids,
+  y: diction[tableData],
+  name: tableData,
+  type: 'bar'
+};
+
+var data = [trace1, trace2, trace3];
+
+var layout = {margin: { b: 400 }, xaxis: { showgrid: true }, title: 'GROUPED BAR CHART', barmode: 'group'};
+
+Plotly.newPlot('myDiv', data, layout);
+}
+
+  /* STACKED BAR CHART */
+function stacked_bar() {
+var trace1 = {
+  x: ids,
+  y: {{ x1|Slice:82 }},
+  name: 'Immunoreactive Protein',
+  type: 'bar'
+};
+
+var trace2 = {
+  x: ids,
+  y: {{ x2|Slice:82 }},
+  name: 'Non-Immunoreactive Protein',
+  type: 'bar'
+};
+
+var trace3 = {
+  x: ids,
+  y: diction[tableData],
+  name: tableData,
+  type: 'bar'
+};
+
+var data = [trace1, trace2, trace3];
+
+var layout = {margin: { b: 400 }, xaxis: { showgrid: true }, title: 'STACKED BAR CHART', barmode: 'stack'};
+
+Plotly.newPlot('myDiv', data, layout);
+}
+
+  /* HEAT MAP */
+function heat_map() {
+var data = [
+  {
+  z: [{{ x1|Slice:82 }}, diction[tableData], {{ x2|Slice:82 }}],
+  x: ids,
+  y: ['Surface', tableData, 'Non-Surface'],
+  type: 'heatmap'
+  }
+];
+var layout = {margin: { l: 200, b: 400 }, title: 'HEAT MAP'};
+Plotly.newPlot('myDiv', data, layout);
+}
+}
 </script>
-
-
 
 {% endblock %}

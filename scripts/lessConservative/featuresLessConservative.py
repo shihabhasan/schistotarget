@@ -4,21 +4,21 @@ from Bio.SeqUtils import ProtParam
 import sys, os, subprocess
 import re
 import time, hashlib
+#sys.path.append('/home/shihab/schistoprot/scripts/lessConservative')
 
-from pepstat import pepstat
-from garnier import garnier
-from netcglyc import netcglyc
-from netchop import netchop
-from netnglyc import netnglyc
-from netphos import netphos
-from prop import prop
-from anchor import anchor
-from targetp import targetp
-from bepipred import bepipred
-from tmhmm import tmhmm
-from signalp import signalp
-from immuno import immuno
-
+from garnierLessConservative import garnier
+from pepstatLessConservative import pepstat
+from netcglycLessConservative import netcglyc
+from netchopLessConservative import netchop
+from netnglycLessConservative import netnglyc
+from netphosLessConservative import netphos
+from propLessConservative import prop
+from anchorLessConservative import anchor
+from targetpLessConservative import targetp
+from bepipredLessConservative import bepipred
+from immunoLessConservative import immuno
+from tmhmmLessConservative import tmhmm
+from countBiMersLessConservative import countBiMers
 
 def features(seqID, sequence):
     parameters=""
@@ -28,23 +28,22 @@ def features(seqID, sequence):
     X = ProtParam.ProteinAnalysis(seq)
     
     count=X.count_amino_acids()
-    parameters=parameters+str(len(sequence))+","
     
     percent=X.get_amino_acids_percent()
-    parameters=parameters+str(percent["A"])+","+str(percent["C"])+","+str(percent["D"])+","+str(percent["E"])+","+str(percent["F"])\
-                   +","+str(percent["G"])+","+str(percent["H"])+","+str(percent["I"])+","+str(percent["K"])+","+str(percent["L"])+","+str(percent["M"])\
-                   +","+str(percent["N"])+","+str(percent["P"])+","+str(percent["Q"])+","+str(percent["R"])+","+str(percent["S"])+","+str(percent["T"])\
-                   +","+str(percent["V"])+","+str(percent["W"])+","+str(percent["Y"])+","
+    parameters=parameters+str(round(percent["A"]*100, 4))+","+str(round(percent["C"]*100, 4))+","+str(round(percent["D"]*100, 4))+","+str(round(percent["E"]*100, 4))+","+str(round(percent["F"]*100, 4))\
+                   +","+str(round(percent["G"]*100, 4))+","+str(round(percent["H"]*100, 4))+","+str(round(percent["I"]*100, 4))+","+str(round(percent["K"]*100, 4))+","+str(round(percent["L"]*100, 4))+","+str(round(percent["M"]*100, 4))\
+                   +","+str(round(percent["N"]*100, 4))+","+str(round(percent["P"]*100, 4))+","+str(round(percent["Q"]*100, 4))+","+str(round(percent["R"]*100, 4))+","+str(round(percent["S"]*100, 4))+","+str(round(percent["T"]*100, 4))\
+                   +","+str(round(percent["V"]*100, 4))+","+str(round(percent["W"]*100, 4))+","+str(round(percent["Y"]*100, 4))+","
 
     
 
     parameters=parameters+str(X.molecular_weight())+","
-    parameters=parameters+str(X.aromaticity())+","
-    parameters=parameters+str(X.instability_index())+","
-    parameters=parameters+str(X.isoelectric_point())+","
-    parameters=parameters+str(X.gravy())+","
-    parameters=parameters+str(X.secondary_structure_fraction()[0])+","+str(X.secondary_structure_fraction()[1])+","+str(X.secondary_structure_fraction()[2])+","
-    parameters=parameters+str(round(X.molecular_weight()/len(seq),4))+","
+    parameters=parameters+str(round(X.aromaticity(), 4))+","
+    parameters=parameters+str(round(X.instability_index(), 4))+","
+    parameters=parameters+str(round(X.isoelectric_point(), 4))+","
+    parameters=parameters+str(round(X.gravy(), 4))+","
+    parameters=parameters+str(round(X.secondary_structure_fraction()[0], 4))+","+str(round(X.secondary_structure_fraction()[1], 4))+","+str(round(X.secondary_structure_fraction()[2], 4))+","
+    parameters=parameters+str(round(X.molecular_weight()/len(seq), 4))+","
 
     #-----------------------ELEMENTAL COST--------------------------
     elemDict={'A':{'C':3,'N':1,'S':0,'O':2,'H':7}, 'R':{'C':6,'N':4,'S':0,'O':2,'H':14},
@@ -78,7 +77,6 @@ def features(seqID, sequence):
     Ocost=str(round(float(O)/length,4))
     Hcost=str(round(float(H)/length,4))
     parameters=parameters+Ccost+","+Ncost+","+Scost+","+Ocost+","+Hcost+","
-
 
     #-----------------------PEPSTATS-------------------------------
     
@@ -147,11 +145,6 @@ def features(seqID, sequence):
     parameters=parameters+netnglyc(inFileName)+","
     
 
-    #--------------------------NetPhos--------------------------------
-
-    parameters=parameters+netphos(inFileName)+","
-
-
     #--------------------------ProP----------------------------------
 
     parameters=parameters+prop(inFileName)+","
@@ -165,19 +158,22 @@ def features(seqID, sequence):
 
     parameters=parameters+targetp(inFileName)+","
 
+
     #--------------------------BepiPred----------------------------------
 
     parameters=parameters+bepipred(inFileName)+","
 
+    #--------------------------Immunogenicity----------------------------------
+
+    parameters=parameters+immuno(inFileName)+","
 
     #--------------------------TMHMM----------------------------------
 
-    parameters=parameters+tmhmm(inFileName)+","
+    parameters=parameters+tmhmm(inFileName)
 
+    #--------------------------countBiMers----------------------------------
 
-    #--------------------------Immunogenicity----------------------------------
-
-    parameters=parameters+immuno(inFileName)
+    parameters=parameters+countBiMers(seq)
 
     #--------------------------#####################---------------------
 

@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class=eukaryotic_outut">
+
+<div style="padding: 1em; background:rgba(255, 255, 255,0.7)";>
 <p> 
-<h2 style="background-color:#00476B; color:white"> <center> Protein features prediction result </center> </h2> 
+<div><h2 style="background-color:#00476B; color:white"> <center> Protein features prediction result </center> </h2></div>
 </p>
 
 {% load my_templatetags %}
@@ -11,11 +12,11 @@
 <!--- OUTPUT TABLE --->
 
 <center>
-<div style="width: 70%">
+<div style="width: 90%">
 
 <p><h1> Features </h1></p>
 <div > 
-<table id="eukaryotic_feature" class="display" cellspacing="0" width="100%" >
+<table id="feature_table" class="display" cellspacing="0" width="100%" >
 
 <thead>
 {% for h in fh %}
@@ -179,7 +180,7 @@ diction = {
     }
 
 $(document).ready( function () {
-	$('#eukaryotic_feature').DataTable({
+	$('#feature_table').DataTable({
 		"scrollX": true,
         dom: 'Bfrtip',
 		scrollY: '50vh',
@@ -200,9 +201,9 @@ $(document).ready( function () {
         }
 	});
 	
-	 var table = $('#eukaryotic_feature').DataTable();
-    $('#eukaryotic_feature tbody td').click (function () {
-      $('#eukaryotic_feature tbody td').not(this).removeClass('cell_selected');
+	 var table = $('#feature_table').DataTable();
+    $('#feature_table tbody td').click (function () {
+      $('#feature_table tbody td').not(this).removeClass('cell_selected');
       $(this).toggleClass('cell_selected');
 		var idx = table.cell( this ).index().column;
 		var col_header = table.column( idx ).header();
@@ -217,25 +218,6 @@ $(document).ready( function () {
 {
 document.getElementById('selection').innerHTML = "Selected: " + seqID;
 }
-</script>
-
-
-<center> 
-<br></br>
-
-<h3>Click on a cell of the Feature table, then click on the Detail View button</h3>
-
-<liBig><a href="/eukaryotic_app" class="roundBig blue">Detail View<span class="roundBig">View detail of selected protein</span></a></liBig>
-
-<div id="loading">
-  <img id="loading-image" src="custom/spinner.gif" alt="Loading..." />
-</div>
-
-<script language="javascript" type="text/javascript">
-     $(window).load(function() {
-     $('#loading').hide();
-  });
-  
 </script>
 
 {% endblock %}
