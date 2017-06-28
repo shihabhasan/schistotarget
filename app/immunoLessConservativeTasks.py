@@ -275,7 +275,7 @@ def run_immuno_less_conservative(filename, input_email, feature_mode, task_id):
     for line in lines:
         prediction_count=line.count('Non-Immunoreactive Protein')
         l=line.split(",")
-        if prediction_count>7:
+        if prediction_count>8:
             if len(str(fasta_record[l[0]].seq))<20:
                 predicted = l[0] + ',Too short sequence,Unable to predict'
             else:

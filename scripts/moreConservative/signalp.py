@@ -14,9 +14,9 @@ def signalPeptides(fileName):
     lines = process.stdout.readlines()
 
     if "SP='YES'" in lines[-1]:
-        return "1"
+        return "YES"
     else:
-        return "0"
+        return "NO"
 
 
     

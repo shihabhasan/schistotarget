@@ -3,7 +3,7 @@ from celery import task
 import sys
 sys.path.append('/home/shihab/schistotarget/scripts/moreConservative')
 sys.path.append('/home/shihab/schistotarget/scripts/lessConservative')
-sys.path.append('/home/shihab/schistotarget/scripts/featuresPrediction')
+sys.path.append('/home/shihab/schistotarget/scripts/featuresPredict')
 from .immunoMoreConservativeTasks import run_immuno_more_conservative
 from .immunoLessConservativeTasks import run_immuno_less_conservative
 from .featureTasks import run_features
