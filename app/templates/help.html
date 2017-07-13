@@ -42,42 +42,23 @@
 				<div class="box-content">
 					<h3 class="widget-title">About</h3>
 						<p>
-						SchistoProt is a supervised machine learning based tool which uses 17 supervised machine learning techniques using <a href="http://scikit-learn.org">Scikit-Learn</a> to discriminate between i) surface and non-surface proteins and ii) secretory and non-secretory peptides. 
-						These 17 techniques are:
-						<div class="col-xs-12 col-sm-6">
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html">1. Gradient Boosting Machine (GBM)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC">2. Support Vector Machine with Radial Bias Function (RBF SVM)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC">3. SVMs with linear kernel (Linear SVM)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier">4. Decision Tree</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier">5. Random Forest</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html">6. Ada Boost</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB">7. Gaussian Naive Bayes (GNB)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis">8. Linear Discriminant Analysis (LDA)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis">9.Quadratic Discriminant Analysis (QDA)</a></br>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeClassifier.html">10. Ridge regression</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier">11. Stochastic gradient descent (SGD)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html#sklearn.linear_model.Perceptron">12. Perceptron</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.PassiveAggressiveClassifier.html#sklearn.linear_model.PassiveAggressiveClassifier">13. Passive aggressive</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB">14. Bernoulli Naive Bayes (BNB)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB">15. Multinomial Naive Bayes (MNB)</a></br>
-						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.PassiveAggressiveClassifier.html#sklearn.linear_model.PassiveAggressiveClassifier">16. Nearest Centroid method</a></br>
-						<br><a href="http://scikit-learn.org/dev/modules/generated/sklearn.neural_network.MLPClassifier.html#sklearn.neural_network.MLPClassifier">17. Multi-layer Perceptron (MLP)</a></br>
-						<br></br><br></br>
-						</div>
-						</p>			
-						
-						
+						<br>SchistoProt is a supervised machine learning based tool which uses Gaussian Naive Bayes (GNB) and Bernoulli Naive Bayes (BNB) machine learning techniques using <a href="http://scikit-learn.org">Scikit-Learn</a> to discriminate between immunoreactive and non-immunoreactive proteins.</br> 
+						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB">1. Gaussian Naive Bayes (GNB)</a></br>
+						<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB">2. Bernoulli Naive Bayes (BNB)</a></br>
+						</p>
+						<p>
+						These 2 machine-learning techniques were combined into a single classifier. 
+						The prediction class was chosen by the majority rule and proteins were assigned to the class. 
+						Majority-voting rule is a decision rule that selects alternatives which have a majority; that is, more than half the of the predicted classes. 
+						A protein is assigned to positive class only if it is predicted by the 2 classifiers as positive; 
+						otherwise, SchistoTarget assigns the protein as negative class i.e., only one or no classifiers predict the protein as positive. 						
+						</p>	
 						<div>
 						<p>
 						Generated predictions are stored in a database, which facilitates the rapid reuse of predictions without rerunning the time-consuming machine learning classifications.
 						This saves considerabe runtime if the same sequences are uploaded multiple times, e.g. by different users. 
 						SchistoProt predictions are highly valuable for identifying genes important for host-parasite interaction and the discovery of novel drug and vaccine targets.
 						</p>
-						
-											
-
 						<center> <img src="{% static 'images/workflow.gif' %}" alt="work flow" width ="80%"></center>
 						</div>
 											
@@ -89,12 +70,8 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="box-content">
 					<h3 class="widget-title">Demo Data Set</h3>                           
-					<p>The demo data set can be downloded from <a href="{% static 'demo.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;here</a></p>
+					<p>The demo data set can be downloded from <a href="{% static 'demo.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;here</a>.</p>
 					<br></br>
-					<h3 class="widget-title">Other example data set</h3>
-					<a href="{% static 'human_secretory.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;Human Secreted Proteins</a>
-					
-					<p><a href="{% static 'mouse_secretory.zip' %}"><i class="fa fa-download fa-2x"></i>&nbsp;Mouse Secreted Proteins</a></p>
 					</div>
 				</div>
 			</div>
@@ -135,15 +112,20 @@
 					<br></br>
 					The prediction table is a list of Sequence ID of test protein sequence, category prediction, decision score and probability.
 					<br></br>
-					<center> <img src="{% static 'prediction.gif' %}" alt="Prediction Table" width ="90%"></center> 
+					<center> <img src="{% static 'images/prediction.gif' %}" alt="Prediction Table" width ="90%"></center> 
 					<br></br><br></br>
-					The feature table is a list of Sequence ID of test protein sequences and the values for 76 features.
+					The feature table is a list of Sequence ID of test protein sequences and the features values.
 					<br></br>
-					<center> <img src="{% static 'feature.gif' %}" alt="Features Table" width ="90%"></center> 
+					<center> <img src="{% static 'images/feature.gif' %}" alt="Features Table" width ="90%"></center> 
 					<br></br><br></br>
 					Plots and Charts can be drawn from 'Draw Charts' section.
 					<br></br>
-					<center> <img src="{% static 'charts.gif' %}" alt="Charts" width ="90%"></center> 
+					<center> <img src="{% static 'images/charts.gif' %}" alt="Charts" width ="90%"></center> 
+					<br></br>
+					<br></br><br></br>
+					Features prdiction tool prvides a table with all selected features for the proteins.
+					<br></br>
+					<center> <img src="{% static 'images/protfeatures.gif' %}" alt="Charts" width ="90%"></center> 
 					<br></br>
 					</p>		
 				</div>

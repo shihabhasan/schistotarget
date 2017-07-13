@@ -64,8 +64,8 @@ def run_immuno_less_conservative(filename, input_email, feature_mode, task_id):
     seqID_list=[]
     result_dict={}
     result_file=open(filename+"_result.csv", 'w')
-    result_file.write("Sequence_ID,Gaussian Naive Bayes Prediction,Gaussian Naive Bayes Decision Score,Gaussian Naive Bayes Probability,\
-    BernoulliNB Prediction,BernoulliNB Decision Score,BernoulliNB Probability\n")
+    result_file.write("Sequence_ID,Gaussian Naive Bayes Prediction,Gaussian Naive Bayes Probability,\
+    BernoulliNB Prediction,BernoulliNB Probability\n")
 
     records=SeqIO.parse(filename, "fasta")
     for record in records:
@@ -150,15 +150,15 @@ def run_immuno_less_conservative(filename, input_email, feature_mode, task_id):
 
                 if probability=='NA':
                     if decision=='NA':
-                        name[seqID_list[i]]=pred+","+decision+","+probability
+                        name[seqID_list[i]]=pred+","+probability
                     else:
                         name[seqID_list[i]]=pred+","+str(round(float(decision),4))+","+probability
                 else:
                     if decision=='NA':
                         if probability>0.5:
-                            name[seqID_list[i]]=pred+","+decision+","+str(round(probability,4))
+                            name[seqID_list[i]]=pred+","+str(round(probability,4))
                         else:
-                            name[seqID_list[i]]=pred+","+decision+","+str(round(1-probability,4))
+                            name[seqID_list[i]]=pred+","+str(round(1-probability,4))
                     else:
                         if probability>0.5:
                             name[seqID_list[i]]=pred+","+str(round(float(decision),4))+","+str(round(probability,4))
