@@ -135,7 +135,7 @@ featuresDic={'seqLength':'Length of sequence',
 
 #---------------------FEATURES PREDICTION BACKGROUND TASK------------------
 @task
-def run_features(filename, input_email, features_list, task_id):
+def run_features(filename, feature_email, features_list, task_id):
     records=SeqIO.parse(filename, "fasta")
     featuresOutFile=open(filename+"_features.csv", "w")
     featuresOutFile.write('Sequence ID,')
@@ -153,10 +153,10 @@ def run_features(filename, input_email, features_list, task_id):
 
     #--------------------EMAIL SENDING--------------------------------------
 
-    if input_email!="":
-        command = "echo 'Your SchistoTarget Features Prediction Result is ready for job ID: " + task_id + "\n\n" + \
-                  "You can view the interactive tables and plots by the link: http://schistotarget.bioapps.org/feature_results/" + task_id + "\n\n\n" + \
-                  "Kind regards,\n\nLutz Krause & Shihab Hasan\nComputational Medical Genomics Group, The University of Queensland Diamantina Institute' | mutt -a "+filename+"'_features.csv' -s 'SchistoTarget Features Prediction Result for job ID '" + task_id + " -- " + input_email
+    if feature_email!="":
+        command = "echo 'Your SchistoTarget Features Prediction Result is ready.\n\n"+\
+                  "Kind regards,\n\nLutz Krause & Shihab Hasan\nComputational Medical Genomics Group, The University of Queensland Diamantina Institute' | mutt -a "+filename+"'_features.csv' -s 'SchistoTarget Features Prediction Result' -- "+feature_email
+
         subprocess.call(command, shell=(sys.platform != "Linux"))
 
     featureFile = open(filename+"_features.csv",'r')
